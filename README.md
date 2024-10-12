@@ -55,7 +55,7 @@ This application is a tool for converting JSON data into SPSS `.sav` files. It u
 You can run the compiled executable directly from the command line:
 
 ```bash
-/path/to/your/dist/json_to_spss '{"data":[{"ID":1,"Name":"Alice","Age":25,"Gender":"1","Score":85.5},{"ID":2,"Name":"Bob","Age":30,"Gender":"2","Score":78.0}],"metadata":{"variable_labels":{"ID":"Identification Number","Name":"Name of Respondent","Age":"Age of Respondent","Gender":"Gender of Respondent","Score":"Test Score"},"value_labels":{"Gender":{"1":"Male","2":"Female"}},"variable_types":{"ID":0,"Name":1,"Age":0,"Gender":0,"Score":0}}}' '/path/to/output/file.sav'
+/path/to/your/dist/json_to_spss '{"data":[{"ID":1,"Name":"Alice","Age":25,"Gender":"1","Score":85.5},{"ID":2,"Name":"Bob","Age":30,"Gender":"2","Score":78.0}],"metadata":{"variable_labels":{"ID":"Identification Number","Name":"Name of Respondent","Age":"Age of Respondent","Gender":"Gender of Respondent","Score":"Test Score"},"value_labels":{"Gender":{"1":"Male","2":"Female"}},"variable_types":{"ID":{type:0,width:8,decimal:0},"Name":{type:1,width:50,decimal:0},"Age":{type:0,width:8,decimal:0},"Gender":{type:0,width:8,decimal:0},"Score":{type:0,width:8,decimal:2}}}}' '/path/to/output/file.sav'
 ```
 
 ### From Laravel
@@ -141,11 +141,11 @@ const jsonData = {
             }
         },
         variable_types: {
-            ID: 0,
-            Name: 1,
-            Age: 0,
-            Gender: 0,
-            Score: 0
+            ID: { type: 0, width: 8, decimal: 0 },  
+            Name: { type: 1, width: 50, decimal: 0 }, 
+            Age: { type: 0, width: 8, decimal: 0 },  
+            Gender: { type: 0, width: 8, decimal: 0 },  
+            Score: { type: 0, width: 8, decimal: 2 } 
         }
     }
 };

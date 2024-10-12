@@ -48,11 +48,11 @@ const jsonData = {
             }
         },
         variable_types: {
-            ID: 0,
-            Name: 1,
-            Age: 0,
-            Gender: 0,
-            Score: 0
+            ID: { type: 0, width: 8, decimal: 0 },
+            Name: { type: 1, width: 50, decimal: 0 },
+            Age: { type: 0, width: 8, decimal: 0 },
+            Gender: { type: 0, width: 8, decimal: 0 },
+            Score: { type: 0, width: 8, decimal: 2 }
         }
     }
 };
