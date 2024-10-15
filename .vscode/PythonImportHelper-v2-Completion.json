@@ -1,0 +1,56 @@
+[
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "pyreadstat",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyreadstat",
+        "description": "pyreadstat",
+        "detail": "pyreadstat",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "parse_json",
+        "kind": 2,
+        "importPath": "json_to_spss_v1",
+        "description": "json_to_spss_v1",
+        "peekOfCode": "def parse_json(json_data):\n    \"\"\"Parse JSON data into a dictionary.\"\"\"\n    try:\n        return json.loads(json_data)\n    except json.JSONDecodeError as e:\n        raise ValueError(f\"Invalid JSON data: {e}\")\ndef main():\n    if len(sys.argv) != 4:\n        print(\"Usage: python json_to_spss <json_data> <output_file>\")\n        sys.exit(1)",
+        "detail": "json_to_spss_v1",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "json_to_spss_v1",
+        "description": "json_to_spss_v1",
+        "peekOfCode": "def main():\n    if len(sys.argv) != 4:\n        print(\"Usage: python json_to_spss <json_data> <output_file>\")\n        sys.exit(1)\n    try:\n        meta = sys.argv[1]\n        data = sys.argv[2]\n        output_file = sys.argv[3]\n        parsed_data = parse_json(data)\n        parsed_meta = parse_json(meta)",
+        "detail": "json_to_spss_v1",
+        "documentation": {}
+    }
+]
