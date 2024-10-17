@@ -1,107 +1,104 @@
-# JSON to SPSS Converter CLI For Any Programming Language
+Here’s a detailed `README.md` file for your application:
 
-This application is a tool for converting JSON data into SPSS `.sav` files. It utilizes Python and the `pyreadstat` library for reading and writing SPSS files. The application is open-source and released under the MIT License.
+---
+
+# JSON to SPSS Converter Application
+
+This application allows users to convert JSON data into SPSS (.sav) files using a Flask-based web service. The application leverages Python libraries such as `pandas` and `pyreadstat` to parse the JSON and create SPSS-compatible files. It also provides an easy-to-use API for interacting with the service and supports dynamic file generation.
 
 ## Features
 
-- Convert JSON data into SPSS format.
-- Support for variable labels and value labels.
-- Easy integration with Laravel and Node.js applications.
+- Converts JSON data and metadata into SPSS `.sav` format.
+- Generates unique SPSS files for each request.
+- Simple and easy-to-use API to upload JSON data and retrieve SPSS files.
+- Built using Python, Flask, `pandas`, and `pyreadstat`.
 
 ## Prerequisites
 
-- Python 3.6 or higher
-- Pip (Python package installer)
-- PyInstaller (for creating the executable)
-- Laravel (for integrating the Python executable)
-- Node.js (for running the application from a Node.js environment)
+- Python 3.6 or later.
+- Flask for web service.
+- `pandas` and `pyreadstat` for data manipulation and SPSS file creation.
 
-## Installation
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/json-to-spss-converter.git
-   cd json-to-spss-converter
-   ```
-
-2. **Create a virtual environment** (optional but recommended):
-   ```bash
-   python -m venv myenv
-   source myenv/bin/activate  # On Windows use: myenv\Scripts\activate
-   ```
-
-3. **Install the required Python packages**:
-   Install all dependencies listed in `requirements.txt`:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Install PyInstaller**:
-   ```bash
-   pip install pyinstaller
-   ```
-
-5. **Compile the Python script**:
-   ```bash
-   pyinstaller --onefile --hidden-import=pyreadstat --collect-all pyreadstat json_to_spss.py
-   ```
-
-   This will create an executable in the `dist` folder.
-
-## Running the Application
-
-### From the Command Line
-
-You can run the compiled executable directly from the command line:
+### Required Python Packages
 
 ```bash
-./dist/json_to_spss_v1 '{"variable_value_labels":{"LevelManagement":{"1":"Headquarter","2":"Branches"},"Gender":{"1":"Male","2":"Female"},"Age":{"1":"Under 20","2":"21-29","3":"30-39","4":"40-65","5":"Above 65"},"EducationLevel":{"1":"Diploma","2":"Bachelor","3":"Masters","4":"PhD"},"MaritalStatus":{"1":"Single","2":"Married","3":"Divorced","4":"Separated"}},"variable_measure":{"LevelManagement":"nominal","Gender":"nominal","Age":"nominal","EducationLevel":"nominal","MaritalStatus":"nominal","Date":"scale"},"column_labels":{"LevelManagement":"Level of Management","Gender":"Gender","Age":"Age","EducationLevel":"Education Level","MaritalStatus":"Marital Status","Date":"Date of Response"}}' '[{"LevelManagement":"1","Gender":"1","Age":"2","EducationLevel":"2","MaritalStatus":"2","Date":"2023-01-15"},{"LevelManagement":"2","Gender":"2","Age":"3","EducationLevel":"3","MaritalStatus":"1","Date":"2023-02-20"},{"LevelManagement":"1","Gender":"1","Age":"4","EducationLevel":"4","MaritalStatus":"3","Date":"2023-03-18"},{"LevelManagement":"2","Gender":"2","Age":"2","EducationLevel":"1","MaritalStatus":"4","Date":"2023-04-10"},{"LevelManagement":"1","Gender":"1","Age":"5","EducationLevel":"2","MaritalStatus":"2","Date":"2023-05-12"},{"LevelManagement":"2","Gender":"2","Age":"3","EducationLevel":"1","MaritalStatus":"1","Date":"2023-06-25"},{"LevelManagement":"1","Gender":"1","Age":"4","EducationLevel":"3","MaritalStatus":"3","Date":"2023-07-09"},{"LevelManagement":"2","Gender":"2","Age":"2","EducationLevel":"4","MaritalStatus":"2","Date":"2023-08-30"},{"LevelManagement":"1","Gender":"2","Age":"3","EducationLevel":"2","MaritalStatus":"4","Date":"2023-09-14"},{"LevelManagement":"2","Gender":"1","Age":"4","EducationLevel":"3","MaritalStatus":"1","Date":"2023-10-03"}]' ./output-file.sav
+Flask==3.0.3
+gunicorn==23.0.0
+pandas==2.2.3
+pyreadstat==1.2.7
 ```
 
-### From Node.js
+## Project Structure
 
-To run the application from a Node.js environment, you can use the `child_process` module to execute the Python executable. Here's an example:
+```
+your_project_directory/
+│
+├── venv/                     # Virtual environment directory
+│   ├── ...
+│
+├── output/                   # Output directory for SPSS files
+│   ├── ...
+│
+├── main.py      # Your main Flask application file
+├── wsgi.py                   # WSGI callable for deployment
+├── dev.py                   # DEV WSGI callable for Development
+├── requirements.txt          # Python dependencies
+└── README.md                 # Documentation (this file)
+```
 
-```javascript
-const { exec } = require('child_process');
-const fs = require('fs');
+## Setup and Installation
 
-function convertJsonToSpss(metadata, data, outputFile) {
-    // Escape the input to prevent command injection
-    const escapedJsonData = JSON.stringify(data);
-    const escapedJsonMetaData = JSON.stringify(metadata);
+### 1. Clone the Repository
 
-    const command = `./dist/json_to_spss_v1 '${escapedJsonMetaData}' '${escapedJsonData}' ${outputFile}`;
+```bash
+git clone https://github.com/harunjeylan/json_to_spss.git
+cd json_to_spss
+```
 
-    exec(command, (error, stdout, stderr) => {
-        console.log(stdout);
+### 2. Create a Virtual Environment
 
-        if (error) {
-            console.error(`Error executing command: ${error.message}`);
-            return;
-        }
-        if (stderr) {
-            console.error(`Error: ${stderr}`);
-            return;
-        }
-        // Check if the output file was created successfully
-        if (fs.existsSync(outputFile)) {
-            console.log(`SPSS file created successfully: ${outputFile}`);
-        } else {
-            console.error(`Failed to create SPSS file.`);
-        }
-    });
-}
+It's recommended to use a virtual environment to manage dependencies.
 
+```bash
+python -m venv venv
+source venv/bin/activate   # On Linux/MacOS
+venv\Scripts\activate      # On Windows
+```
 
-const data = [
+### 3. Install the Dependencies
+
+Install the necessary packages using the `requirements.txt` file:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Run the Flask Application
+
+```bash
+python dev.py
+```
+
+The application will start at `http://localhost:2020`.
+
+## Usage
+
+### POST `/convert`
+
+This endpoint accepts a JSON payload containing the `metadata` and `data` to be converted into an SPSS file.
+
+#### Request Example
+
+```json
+{
+  "data": [
     {
         "LevelManagement": "1",
         "Gender": "1",
         "Age": "2",
         "EducationLevel": "2",
         "MaritalStatus": "2",
-        "Date": "2023-01-15",
+        "Date": "2023-01-15"
     },
     {
         "LevelManagement": "2",
@@ -109,7 +106,7 @@ const data = [
         "Age": "3",
         "EducationLevel": "3",
         "MaritalStatus": "1",
-        "Date": "2023-02-20",
+        "Date": "2023-02-20"
     },
     {
         "LevelManagement": "1",
@@ -117,67 +114,10 @@ const data = [
         "Age": "4",
         "EducationLevel": "4",
         "MaritalStatus": "3",
-        "Date": "2023-03-18",
+        "Date": "2023-03-18"
     },
-    {
-        "LevelManagement": "2",
-        "Gender": "2",
-        "Age": "2",
-        "EducationLevel": "1",
-        "MaritalStatus": "4",
-        "Date": "2023-04-10",
-    },
-    {
-        "LevelManagement": "1",
-        "Gender": "1",
-        "Age": "5",
-        "EducationLevel": "2",
-        "MaritalStatus": "2",
-        "Date": "2023-05-12",
-    },
-    {
-        "LevelManagement": "2",
-        "Gender": "2",
-        "Age": "3",
-        "EducationLevel": "1",
-        "MaritalStatus": "1",
-        "Date": "2023-06-25",
-    },
-    {
-        "LevelManagement": "1",
-        "Gender": "1",
-        "Age": "4",
-        "EducationLevel": "3",
-        "MaritalStatus": "3",
-        "Date": "2023-07-09",
-    },
-    {
-        "LevelManagement": "2",
-        "Gender": "2",
-        "Age": "2",
-        "EducationLevel": "4",
-        "MaritalStatus": "2",
-        "Date": "2023-08-30",
-    },
-    {
-        "LevelManagement": "1",
-        "Gender": "2",
-        "Age": "3",
-        "EducationLevel": "2",
-        "MaritalStatus": "4",
-        "Date": "2023-09-14",
-    },
-    {
-        "LevelManagement": "2",
-        "Gender": "1",
-        "Age": "4",
-        "EducationLevel": "3",
-        "MaritalStatus": "1",
-        "Date": "2023-10-03",
-    },
-]
-
-const metadata = {
+],
+"metadata" : {
     "variable_value_labels": {
         "LevelManagement": { "1": "Headquarter", "2": "Branches" },
         "Gender": { "1": "Male", "2": "Female" },
@@ -186,15 +126,15 @@ const metadata = {
             "2": "21-29",
             "3": "30-39",
             "4": "40-65",
-            "5": "Above 65",
+            "5": "Above 65"
         },
         "EducationLevel": { "1": "Diploma", "2": "Bachelor", "3": "Masters", "4": "PhD" },
         "MaritalStatus": {
             "1": "Single",
             "2": "Married",
             "3": "Divorced",
-            "4": "Separated",
-        },
+            "4": "Separated"
+        }
     },
     "variable_measure": {
         "LevelManagement": "nominal",
@@ -202,7 +142,7 @@ const metadata = {
         "Age": "nominal",
         "EducationLevel": "nominal",
         "MaritalStatus": "nominal",
-        "Date": "scale",
+        "Date": "scale"
     },
     "column_labels": {
         "LevelManagement": "Level of Management",
@@ -210,31 +150,85 @@ const metadata = {
         "Age": "Age",
         "EducationLevel": "Education Level",
         "MaritalStatus": "Marital Status",
-        "Date": "Date of Response",
-    },
+        "Date": "Date of Response"
+    }
 }
-
-
-convertJsonToSpss(metadata, data, './output-file.sav');
+}
 ```
+
+#### Response Example
+
+```json
+{
+  "message": "SPSS file created successfully: /output/abcdef123456.sav",
+  "outputUrl": "/output/abcdef123456.sav"
+}
+```
+
+### GET `/output/<filename>`
+
+Use the dynamically generated URL from the `/convert` response to download the SPSS file.
+
+#### Example
+
+```bash
+GET http://localhost:2020/output/abcdef123456.sav
+```
+
+## WSGI Deployment
+
+To deploy the application in a production environment, you can configure a WSGI server.
+
+### 1. Create a `wsgi.py` file:
+
+```python
+from your_flask_script import app
+
+if __name__ == "__main__":
+    app.run()
+```
+
+### 2. Example Deployment (Using Gunicorn)
+
+Install Gunicorn:
+
+```bash
+pip install gunicorn
+```
+
+Run the application:
+
+```bash
+gunicorn --bind 0.0.0.0:8000 wsgi:app
+```
+
+Run the application with Docker Compose:
+```bash
+docker compose up
+```
+
+## Troubleshooting
+
+### PyCapsule_Import Could Not Import Module "datetime"
+
+This error can be resolved by ensuring that your Python environment is correctly set up. Please make sure the following steps are followed:
+
+- Ensure you're using the right Python version (`python --version`).
+- Check for conflicts between different package versions.
+- Use a virtual environment and ensure all dependencies are properly installed.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a feature branch: `git checkout -b my-feature`.
+3. Commit your changes: `git commit -m 'Add some feature'`.
+4. Push to the branch: `git push origin my-feature`.
+5. Open a pull request.
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Contributing
+---
 
-Contributions are welcome! Please fork the repository and submit a pull request with your changes.
-
-## Acknowledgments
-
-- [PyInstaller](https://www.pyinstaller.org/) - for packaging Python applications.
-- [pyreadstat](https://github.com/Roche/pyreadstat) - for reading and writing SPSS files.
-
-
-### Adjustments Made
-- Added instructions for using `requirements.txt` to install dependencies.
-- Included a section on how to run the application from a Node.js environment using `child_process`.
-- Maintained the overall structure and clarity of the `README.md` file.
-
-Feel free to customize further based on your project's specifics or any additional instructions you may want to include!
+This `README.md` file provides a clear and structured guide for setting up, running, and using the application. Let me know if you want to add or modify anything!

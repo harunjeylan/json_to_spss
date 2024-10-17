@@ -1,5 +1,21 @@
 [
     {
+        "label": "app",
+        "importPath": "main",
+        "description": "main",
+        "isExtraImport": true,
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "importPath": "main",
+        "description": "main",
+        "isExtraImport": true,
+        "detail": "main",
+        "documentation": {}
+    },
+    {
         "label": "json",
         "kind": 6,
         "isExtraImport": true,
@@ -36,6 +52,47 @@
         "documentation": {}
     },
     {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "send_file",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
         "label": "parse_json",
         "kind": 2,
         "importPath": "json_to_spss_v1",
@@ -51,6 +108,51 @@
         "description": "json_to_spss_v1",
         "peekOfCode": "def main():\n    if len(sys.argv) != 4:\n        print(\"Usage: python json_to_spss <json_data> <output_file>\")\n        sys.exit(1)\n    try:\n        meta = sys.argv[1]\n        data = sys.argv[2]\n        output_file = sys.argv[3]\n        parsed_data = parse_json(data)\n        parsed_meta = parse_json(meta)",
         "detail": "json_to_spss_v1",
+        "documentation": {}
+    },
+    {
+        "label": "convert_json_to_spss",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def convert_json_to_spss(metadata, data, output_file):\n    \"\"\"Convert JSON data to SPSS format and save it.\"\"\"\n    # Convert parsed data to a DataFrame\n    df = pd.DataFrame(data)\n    # Check if metadata contains valid SPSS attributes\n    if not isinstance(metadata, dict):\n        raise ValueError(\"Metadata should be a valid JSON object.\")\n    # Write the DataFrame to SPSS .sav file\n    pyreadstat.write_sav(df, output_file, **metadata)\n    return output_file",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "convert",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def convert():\n    try:\n        data = request.json\n        print(data)\n        if not data or \"metadata\" not in data or \"data\" not in data:\n            return (\n                jsonify(\n                    {\n                        \"error\": \"Invalid request. Ensure 'metadata' and 'data' are provided.\"\n                    }",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_file",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_file(filename):\n    \"\"\"Serve the generated SPSS file.\"\"\"\n    file_path = os.path.join(output_dir, filename)\n    if not os.path.isfile(file_path):\n        return jsonify({\"error\": \"File not found.\"}), 404\n    return send_file(file_path, as_attachment=True)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = Flask(__name__)\n# Ensure the 'output' directory exists\noutput_dir = \"output\"\nos.makedirs(output_dir, exist_ok=True)\ndef convert_json_to_spss(metadata, data, output_file):\n    \"\"\"Convert JSON data to SPSS format and save it.\"\"\"\n    # Convert parsed data to a DataFrame\n    df = pd.DataFrame(data)\n    # Check if metadata contains valid SPSS attributes\n    if not isinstance(metadata, dict):",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "output_dir",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "output_dir = \"output\"\nos.makedirs(output_dir, exist_ok=True)\ndef convert_json_to_spss(metadata, data, output_file):\n    \"\"\"Convert JSON data to SPSS format and save it.\"\"\"\n    # Convert parsed data to a DataFrame\n    df = pd.DataFrame(data)\n    # Check if metadata contains valid SPSS attributes\n    if not isinstance(metadata, dict):\n        raise ValueError(\"Metadata should be a valid JSON object.\")\n    # Write the DataFrame to SPSS .sav file",
+        "detail": "main",
         "documentation": {}
     }
 ]
