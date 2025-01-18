@@ -13,9 +13,10 @@ os.makedirs(output_dir, exist_ok=True)
 
 def convert_json_to_spss(metadata, data, output_file):
     """Convert JSON data to SPSS format and save it."""
-
+    print(metadata, data)
     # Convert parsed data to a DataFrame
     df = pd.DataFrame(data)
+    print(df.head())
 
     # Check if metadata contains valid SPSS attributes
     if not isinstance(metadata, dict):

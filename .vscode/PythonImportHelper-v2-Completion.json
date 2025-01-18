@@ -1,5 +1,23 @@
 [
     {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "pyreadstat",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pyreadstat",
+        "description": "pyreadstat",
+        "detail": "pyreadstat",
+        "documentation": {}
+    },
+    {
         "label": "app",
         "importPath": "main",
         "description": "main",
@@ -22,24 +40,6 @@
         "importPath": "json",
         "description": "json",
         "detail": "json",
-        "documentation": {}
-    },
-    {
-        "label": "pandas",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pandas",
-        "description": "pandas",
-        "detail": "pandas",
-        "documentation": {}
-    },
-    {
-        "label": "pyreadstat",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pyreadstat",
-        "description": "pyreadstat",
-        "detail": "pyreadstat",
         "documentation": {}
     },
     {
@@ -93,6 +93,33 @@
         "documentation": {}
     },
     {
+        "label": "csv_to_spss",
+        "kind": 2,
+        "importPath": "csv_to_spss",
+        "description": "csv_to_spss",
+        "peekOfCode": "def csv_to_spss(csv_file, spss_file):\n    \"\"\"\n    Convert a CSV file to an SPSS .sav file.\n    Parameters:\n    csv_file (str): Path to the input CSV file.\n    spss_file (str): Path to the output SPSS file.\n    \"\"\"\n    try:\n        # Read the CSV file into a pandas DataFrame\n        df = pd.read_csv(csv_file)",
+        "detail": "csv_to_spss",
+        "documentation": {}
+    },
+    {
+        "label": "csv_file",
+        "kind": 5,
+        "importPath": "csv_to_spss",
+        "description": "csv_to_spss",
+        "peekOfCode": "csv_file = \"input.csv\"  # Replace with your CSV file path\nspss_file = \"output.sav\"  # Replace with your desired output SPSS file path\ncsv_to_spss(csv_file, spss_file)",
+        "detail": "csv_to_spss",
+        "documentation": {}
+    },
+    {
+        "label": "spss_file",
+        "kind": 5,
+        "importPath": "csv_to_spss",
+        "description": "csv_to_spss",
+        "peekOfCode": "spss_file = \"output.sav\"  # Replace with your desired output SPSS file path\ncsv_to_spss(csv_file, spss_file)",
+        "detail": "csv_to_spss",
+        "documentation": {}
+    },
+    {
         "label": "parse_json",
         "kind": 2,
         "importPath": "json_to_spss_v1",
@@ -115,7 +142,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def convert_json_to_spss(metadata, data, output_file):\n    \"\"\"Convert JSON data to SPSS format and save it.\"\"\"\n    # Convert parsed data to a DataFrame\n    df = pd.DataFrame(data)\n    # Check if metadata contains valid SPSS attributes\n    if not isinstance(metadata, dict):\n        raise ValueError(\"Metadata should be a valid JSON object.\")\n    # Write the DataFrame to SPSS .sav file\n    pyreadstat.write_sav(df, output_file, **metadata)\n    return output_file",
+        "peekOfCode": "def convert_json_to_spss(metadata, data, output_file):\n    \"\"\"Convert JSON data to SPSS format and save it.\"\"\"\n    print(metadata, data)\n    # Convert parsed data to a DataFrame\n    df = pd.DataFrame(data)\n    print(df.head())\n    # Check if metadata contains valid SPSS attributes\n    if not isinstance(metadata, dict):\n        raise ValueError(\"Metadata should be a valid JSON object.\")\n    # Write the DataFrame to SPSS .sav file",
         "detail": "main",
         "documentation": {}
     },
@@ -142,7 +169,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "app = Flask(__name__)\n# Ensure the 'output' directory exists\noutput_dir = \"output\"\nos.makedirs(output_dir, exist_ok=True)\ndef convert_json_to_spss(metadata, data, output_file):\n    \"\"\"Convert JSON data to SPSS format and save it.\"\"\"\n    # Convert parsed data to a DataFrame\n    df = pd.DataFrame(data)\n    # Check if metadata contains valid SPSS attributes\n    if not isinstance(metadata, dict):",
+        "peekOfCode": "app = Flask(__name__)\n# Ensure the 'output' directory exists\noutput_dir = \"output\"\nos.makedirs(output_dir, exist_ok=True)\ndef convert_json_to_spss(metadata, data, output_file):\n    \"\"\"Convert JSON data to SPSS format and save it.\"\"\"\n    print(metadata, data)\n    # Convert parsed data to a DataFrame\n    df = pd.DataFrame(data)\n    print(df.head())",
         "detail": "main",
         "documentation": {}
     },
@@ -151,7 +178,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "output_dir = \"output\"\nos.makedirs(output_dir, exist_ok=True)\ndef convert_json_to_spss(metadata, data, output_file):\n    \"\"\"Convert JSON data to SPSS format and save it.\"\"\"\n    # Convert parsed data to a DataFrame\n    df = pd.DataFrame(data)\n    # Check if metadata contains valid SPSS attributes\n    if not isinstance(metadata, dict):\n        raise ValueError(\"Metadata should be a valid JSON object.\")\n    # Write the DataFrame to SPSS .sav file",
+        "peekOfCode": "output_dir = \"output\"\nos.makedirs(output_dir, exist_ok=True)\ndef convert_json_to_spss(metadata, data, output_file):\n    \"\"\"Convert JSON data to SPSS format and save it.\"\"\"\n    print(metadata, data)\n    # Convert parsed data to a DataFrame\n    df = pd.DataFrame(data)\n    print(df.head())\n    # Check if metadata contains valid SPSS attributes\n    if not isinstance(metadata, dict):",
         "detail": "main",
         "documentation": {}
     }
